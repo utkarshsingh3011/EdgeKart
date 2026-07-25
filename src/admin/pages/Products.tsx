@@ -95,6 +95,7 @@ export const Products: React.FC = () => {
   }, [page, selectedCategory, stockFilter, featuredFilter, searchQuery, sortBy]);
 
   useEffect(() => {
+    document.title = 'Products Management | EdgeKart';
     fetchProducts();
   }, [fetchProducts]);
 

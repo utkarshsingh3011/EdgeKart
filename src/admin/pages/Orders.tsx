@@ -83,6 +83,7 @@ export const Orders: React.FC = () => {
   }, [page, searchQuery, statusFilter, paymentStatusFilter, dateRangeFilter]);
 
   useEffect(() => {
+    document.title = 'Orders Management | EdgeKart';
     fetchOrders();
   }, [fetchOrders]);
 

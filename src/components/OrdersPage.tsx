@@ -26,6 +26,9 @@ interface OrdersPageProps {
 
 export const OrdersPage: React.FC<OrdersPageProps> = ({ theme, addToast }) => {
   const { orders, fetchOrders } = useAuth();
+  useEffect(() => {
+    document.title = 'My Orders | EdgeKart';
+  }, []);
   const { addToCart } = useCart();
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 

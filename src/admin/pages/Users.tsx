@@ -87,6 +87,7 @@ export const Users: React.FC = () => {
   }, [page, searchQuery, roleFilter, statusFilter, sortBy]);
 
   useEffect(() => {
+    document.title = 'Users Management | EdgeKart';
     fetchUsers();
   }, [fetchUsers]);
 

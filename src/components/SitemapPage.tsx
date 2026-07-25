@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ArrowLeft, Globe, Database, BookOpen, ExternalLink } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,6 +9,9 @@ interface SitemapPageProps {
 
 export const SitemapPage: React.FC<SitemapPageProps> = ({ theme }) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = 'Sitemap | EdgeKart';
+  }, []);
 
   return (
     <motion.div

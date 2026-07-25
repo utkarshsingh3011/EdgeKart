@@ -22,6 +22,7 @@ export const WishlistPage: React.FC<WishlistPageProps> = ({ theme }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    document.title = 'Wishlist | EdgeKart';
     let isMounted = true;
     setIsLoading(true);
 

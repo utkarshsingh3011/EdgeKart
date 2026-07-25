@@ -25,6 +25,8 @@ import { SettingsPage } from './components/SettingsPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { CartPage } from './components/CartPage';
 
+import NotFound from './pages/NotFound';
+
 // Admin Console Imports
 import AdminProtectedRoute from './admin/components/AdminProtectedRoute';
 import AdminLayout from './admin/layout/AdminLayout';
@@ -230,6 +232,11 @@ function App() {
         <Route
           path="/sitemap"
           element={<SitemapPage theme={theme} />}
+        />
+
+        <Route
+          path="*"
+          element={<NotFound theme={theme} />}
         />
       </Routes>
 

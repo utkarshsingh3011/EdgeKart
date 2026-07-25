@@ -89,6 +89,7 @@ export const Messages: React.FC = () => {
   }, [page, searchQuery, readFilter, repliedFilter, sortBy]);
 
   useEffect(() => {
+    document.title = 'Messages Inbox | EdgeKart';
     fetchMessages();
   }, [fetchMessages]);
 

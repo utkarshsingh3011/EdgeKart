@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { 
@@ -24,6 +24,9 @@ interface SettingsPageProps {
 type TabType = 'profile' | 'security' | 'notifications' | 'appearance' | 'newsletter' | 'account';
 
 export const SettingsPage: React.FC<SettingsPageProps> = ({ theme, toggleTheme, addToast }) => {
+  useEffect(() => {
+    document.title = 'Account Settings | EdgeKart';
+  }, []);
   const { user, updateProfile, updateSecurity, clearRecentlyViewed } = useAuth();
   const [activeTab, setActiveTab] = useState<TabType>('profile');
 

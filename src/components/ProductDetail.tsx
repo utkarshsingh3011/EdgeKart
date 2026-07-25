@@ -97,6 +97,7 @@ export const ProductDetail: React.FC<ProductDetailProps> = ({
           };
 
           setProduct(normalizedProduct);
+          document.title = `${normalizedProduct.name} | EdgeKart`;
 
           if (response.stockValidation) {
             setStockInfo(response.stockValidation);

@@ -75,6 +75,7 @@ export const Dashboard: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    document.title = 'Admin Dashboard | EdgeKart';
     fetchDashboardStats();
   }, [fetchDashboardStats]);
 

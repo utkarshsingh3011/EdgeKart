@@ -91,6 +91,7 @@ export const Settings: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    document.title = 'Store Settings | EdgeKart';
     fetchSettings();
   }, [fetchSettings]);
 

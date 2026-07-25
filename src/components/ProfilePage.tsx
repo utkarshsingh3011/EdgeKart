@@ -24,6 +24,10 @@ interface ProfilePageProps {
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = ({ theme }) => {
+  useEffect(() => {
+    document.title = 'My Profile | EdgeKart';
+  }, []);
+
   const { user, orders, recentlyViewed, updateProfile, logout } = useAuth();
   const { wishlist } = useWishlist();
   

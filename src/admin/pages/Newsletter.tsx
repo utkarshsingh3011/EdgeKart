@@ -91,6 +91,7 @@ export const Newsletter: React.FC = () => {
   }, [page, searchQuery, statusFilter, sortBy]);
 
   useEffect(() => {
+    document.title = 'Newsletter Subscribers | EdgeKart';
     fetchSubscribers();
   }, [fetchSubscribers]);
 

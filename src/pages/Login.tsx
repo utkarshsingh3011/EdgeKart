@@ -23,8 +23,8 @@ export const Login: React.FC<LoginProps> = ({ theme = 'dark' }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  // If user is already logged in, redirect to home
   useEffect(() => {
+    document.title = 'Login | EdgeKart';
     if (user) {
       navigate('/', { replace: true });
     }

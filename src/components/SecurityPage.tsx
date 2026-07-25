@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, ChevronRight, ArrowLeft, Lock, Award } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,6 +9,9 @@ interface SecurityPageProps {
 
 export const SecurityPage: React.FC<SecurityPageProps> = ({ theme }) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = 'Security & Compliance | EdgeKart';
+  }, []);
 
   return (
     <motion.div

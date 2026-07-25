@@ -24,8 +24,8 @@ export const Register: React.FC<RegisterProps> = ({ theme = 'dark' }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
-  // If user is already logged in, redirect to home
   useEffect(() => {
+    document.title = 'Register | EdgeKart';
     if (user) {
       navigate('/', { replace: true });
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShoppingBag, ArrowLeft, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
@@ -35,6 +35,10 @@ export const CartPage: React.FC<CartPageProps> = ({ theme, addToast }) => {
   const { user, fetchOrders } = useAuth();
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Shopping Cart | EdgeKart';
+  }, []);
 
   const handleCheckout = async () => {
     if (!user) {
