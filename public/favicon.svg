@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <!-- Rounded Square Body -->
+  <rect x="8" y="8" width="32" height="32" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="2.5" />
+  
+  <!-- Central Silicon Die -->
+  <rect x="18" y="18" width="12" height="12" rx="2" fill="#2563eb" />
+  <circle cx="24" cy="24" r="2.5" fill="#60a5fa" />
+  
+  <!-- Connection Traces / Pins -->
+  <!-- Top Pins -->
+  <path d="M16 8V4 M24 8V4 M32 8V4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+  <!-- Bottom Pins -->
+  <path d="M16 40v4 M24 40v4 M32 40v4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+  <!-- Left Pins -->
+  <path d="M8 16H4 M8 24H4 M8 32H4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+  <!-- Right Pins -->
+  <path d="M40 16h4 M40 24h4 M40 32h4" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" />
+</svg>

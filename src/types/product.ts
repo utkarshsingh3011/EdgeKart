@@ -1,0 +1,30 @@
+export interface Product {
+  id: string;
+  _id?: string;
+  customId?: string;
+  imageId: string;
+  slug?: string;
+  name: string;
+  category: 'Development Boards' | 'Sensors' | 'Displays' | 'Connectivity' | 'Power' | 'Accessories' | string;
+  brand?: string;
+  price: number;
+  originalPrice?: number | null;
+  rating?: number;
+  reviewsCount?: number;
+  description: string;
+  features?: string[];
+  specs?: Record<string, string>;
+  specifications?: Record<string, string>;
+  isStock?: boolean;
+  stock?: number;
+  stockCount?: number;
+  sku?: string;
+  packageContents?: string[];
+  images?: ('default' | 'pinout' | 'dimensions' | string)[];
+  tags?: string[];
+  isNew?: boolean;
+  isNewProduct?: boolean;
+  isBestSeller?: boolean;
+  featured?: boolean;
+  createdAt?: string;
+}
