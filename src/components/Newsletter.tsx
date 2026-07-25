@@ -70,9 +70,8 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
   return (
     <section
       id="contact"
-      className={`py-24 transition-colors duration-300 relative overflow-hidden ${
-        theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-900'
-      }`}
+      className={`py-24 transition-colors duration-300 relative overflow-hidden ${theme === 'dark' ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-900'
+        }`}
     >
       {/* Decorative gradient orb */}
       <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
@@ -82,14 +81,13 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
           <SkeletonNewsletter theme={theme} />
         ) : (
           /* Glow Panel Wrapper */
-          <div className={`p-8 md:p-14 rounded-3xl border glow-blue relative overflow-hidden text-center md:text-left ${
-            theme === 'dark'
-              ? 'bg-slate-900/40 border-slate-800 grid-bg-dark'
-              : 'bg-slate-50 border-slate-200/80 grid-bg-light'
-          }`}>
-            
+          <div className={`p-8 md:p-14 rounded-3xl border glow-blue relative overflow-hidden text-center md:text-left ${theme === 'dark'
+            ? 'bg-slate-900/40 border-slate-800 grid-bg-dark'
+            : 'bg-slate-50 border-slate-200/80 grid-bg-light'
+            }`}>
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
+
               {/* Text description */}
               <div className="lg:col-span-6 space-y-4">
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-500">Stay Connected</span>
@@ -99,9 +97,8 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
                     Developer Club
                   </span>
                 </h2>
-                <p className={`text-sm leading-relaxed max-w-md ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-655'
-                }`}>
+                <p className={`text-sm leading-relaxed max-w-md ${theme === 'dark' ? 'text-slate-400' : 'text-slate-655'
+                  }`}>
                   Subscribe to receive launch announcements, embedded systems project tutorials, and a <strong className="text-blue-500">15% discount code</strong> for your next purchase.
                 </p>
               </div>
@@ -119,18 +116,25 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
                     >
                       <div className="flex items-center space-x-2.5 text-emerald-500">
                         <CheckCircle className="w-6 h-6 flex-shrink-0" />
-                        <h3 className="font-bold text-lg font-sans">You're Subscribed!</h3>
+                        <h3 className="font-bold text-lg font-sans">
+                          You're Subscribed!
+                        </h3>
                       </div>
-                      <p className={`text-xs leading-relaxed ${
-                        theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
-                      }`}>
-                        Check your email shortly for confirmation. Use discount code <span className="font-mono bg-emerald-500/10 text-emerald-500 px-2 py-0.5 rounded-md font-bold text-sm">EDGEKART15</span> on checkout!
+                      <p
+                        className={`text-xs leading-relaxed ${theme === "dark" ? "text-slate-400" : "text-slate-600"
+                          }`}
+                      >
+                        Thank you for joining the EdgeKart Developer Club.
+                        <br />
+                        Your email has been successfully added to our newsletter.
+                        We'll keep you updated with new hardware launches, embedded systems tutorials,
+                        and exclusive offers.
                       </p>
                       <button
                         onClick={() => setStatus('idle')}
                         className="text-xs text-blue-500 hover:text-blue-400 font-bold underline cursor-pointer"
                       >
-                        Subscribe another email
+                        Subscribe Another Email
                       </button>
                     </motion.div>
                   ) : (
@@ -149,11 +153,10 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
                               if (status === 'error') setStatus('idle');
                             }}
                             disabled={status === 'loading'}
-                            className={`w-full py-3.5 pl-11 pr-4 rounded-xl text-sm font-medium border focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all ${
-                              theme === 'dark'
-                                ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder-slate-500 focus:border-slate-700'
-                                : 'bg-white border-slate-250 text-slate-900 placeholder-slate-455 focus:border-blue-400'
-                            }`}
+                            className={`w-full py-3.5 pl-11 pr-4 rounded-xl text-sm font-medium border focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition-all ${theme === 'dark'
+                              ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder-slate-500 focus:border-slate-700'
+                              : 'bg-white border-slate-250 text-slate-900 placeholder-slate-455 focus:border-blue-400'
+                              }`}
                           />
                         </div>
                         <button
