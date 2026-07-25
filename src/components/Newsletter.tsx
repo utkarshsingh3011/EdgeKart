@@ -32,23 +32,23 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
     e.preventDefault();
     setErrorMsg('');
 
-    if (!email) {
+    if (!email || !email.trim()) {
       setStatus('error');
       setErrorMsg('Please enter an email address.');
       return;
     }
 
-    if (!validateEmail(email)) {
+    if (!validateEmail(email.trim())) {
       setStatus('error');
       setErrorMsg('Please provide a valid email address (e.g. user@example.com).');
       return;
     }
 
     setStatus('loading');
-    const submittedEmail = email;
+    const submittedEmail = email.trim();
 
     try {
-      const { data } = await API.post('/newsletter/subscribe', { email: submittedEmail });
+      const { data } = await API.post('/newsletter', { email: submittedEmail });
       if (data.success) {
         setStatus('success');
         if (addToast) addToast(data.message || `Successfully subscribed ${submittedEmail}!`, 'success');
@@ -56,11 +56,14 @@ export const Newsletter: React.FC<NewsletterProps> = ({ theme, addToast }) => {
       } else {
         setStatus('error');
         setErrorMsg(data.message || 'Failed to subscribe');
+        if (addToast) addToast(data.message || 'Failed to subscribe', 'error');
       }
     } catch (err: any) {
       console.error('Newsletter subscribe error:', err);
       setStatus('error');
-      setErrorMsg(err.response?.data?.message || 'Failed to subscribe. Please try again.');
+      const message = err.response?.data?.message || 'Failed to subscribe. Please try again.';
+      setErrorMsg(message);
+      if (addToast) addToast(message, 'error');
     }
   };
 

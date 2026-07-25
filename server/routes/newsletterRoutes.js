@@ -1,9 +1,14 @@
 import express from 'express';
-import { subscribeNewsletter } from '../controllers/newsletterController.js';
+import { subscribeNewsletter, getNewsletterSubscribers } from '../controllers/newsletterController.js';
+import { protect, admin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Public endpoint for storefront newsletter subscription
+// Storefront newsletter subscription routes
+router.post('/', subscribeNewsletter);
 router.post('/subscribe', subscribeNewsletter);
+
+// Admin newsletter list route
+router.get('/', protect, admin, getNewsletterSubscribers);
 
 export default router;
