@@ -354,10 +354,6 @@ B.Tech Electronics & Communication Engineering
 
 Jaypee Institute of Information Technology (JIIT), Noida
 
-GitHub
-
-LinkedIn
-
 ---
 
 If you found this project interesting, feel free to ⭐ the repository.
