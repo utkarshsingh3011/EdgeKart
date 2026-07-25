@@ -260,18 +260,6 @@ export const Footer: React.FC<FooterProps> = ({ theme }) => {
                     <span className="truncate">Project Documentation</span>
                   </Link>
                 </li>
-                <li>
-                  <a
-                    href="https://github.com/utkarshsingh3011/EdgeKart/issues"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 hover:text-blue-500 transition-colors cursor-pointer focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 rounded-sm"
-                    aria-label="Issue Tracker"
-                  >
-                    <Bug className="w-4 h-4 text-blue-500 flex-shrink-0" />
-                    <span className="truncate">Issue Tracker</span>
-                  </a>
-                </li>
               </ul>
             </div>
 
