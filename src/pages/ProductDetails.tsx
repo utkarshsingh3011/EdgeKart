@@ -34,7 +34,7 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { safeAddToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
   const { addRecentlyViewed } = useAuth();
 
@@ -215,12 +215,15 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({
   };
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    addToCart(product, quantity, e);
+    if (product) safeAddToCart(product, quantity, e);
   };
 
-  const handleBuyNow = () => {
-    addToCart(product, quantity);
-    navigate('/cart');
+  const handleBuyNow = async () => {
+    if (!product) return;
+    const success = await safeAddToCart(product, quantity);
+    if (success) {
+      navigate('/cart');
+    }
   };
 
   const renderStars = (rating: number = 5) => {

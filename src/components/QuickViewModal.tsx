@@ -20,7 +20,7 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
   onClose,
   theme,
 }) => {
-  const { addToCart } = useCart();
+  const { safeAddToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
 
   const [activeVariant, setActiveVariant] = useState<'default' | 'pinout' | 'dimensions'>('default');
@@ -54,9 +54,11 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
     ));
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    addToCart(product, quantity, e);
-    onClose();
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    const success = await safeAddToCart(product, quantity, e);
+    if (success) {
+      onClose();
+    }
   };
 
   return (
@@ -286,10 +288,12 @@ export const QuickViewModal: React.FC<QuickViewModalProps> = ({
                   </button>
 
                   <button
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       if (!isOutOfStock) {
-                        addToCart(product, quantity, e);
-                        onClose();
+                        const success = await safeAddToCart(product, quantity, e);
+                        if (success) {
+                          onClose();
+                        }
                       }
                     }}
                     disabled={isOutOfStock}

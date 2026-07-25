@@ -1,7 +1,9 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import type { Product } from '../types/product';
 import API from '../services/api';
 import { useToast } from './ToastContext';
+import { useAuth } from './AuthContext';
 
 export interface CartItem {
   id: string; // Mongo _id or primary key
@@ -16,7 +18,8 @@ export interface CartItem {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: Product, quantity?: number, event?: any) => Promise<void>;
+  addToCart: (product: Product, quantity?: number, event?: any) => Promise<boolean>;
+  safeAddToCart: (product: Product, quantity?: number, event?: any) => Promise<boolean>;
   updateQuantity: (id: string, quantity: number) => Promise<void>;
   removeItem: (id: string) => Promise<void>;
   clearCart: () => Promise<void>;
@@ -120,6 +123,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [coupon, setCoupon] = useState<string | null>(null);
   const [isCartOpen, setCartOpen] = useState(false);
   const { addToast } = useToast();
+  const { isAuthenticated, token } = useAuth();
+  const navigate = useNavigate();
 
   const mockCoupons: Record<string, number> = {
     'EDGE10': 0.10,
@@ -128,6 +133,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const fetchCart = useCallback(async () => {
+    const storedToken = localStorage.getItem('token');
+    if (!token && !storedToken) {
+      setCart([]);
+      return;
+    }
+
     try {
       const { data } = await API.get('/cart');
       if (data.success && Array.isArray(data.cart)) {
@@ -161,16 +172,24 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       console.error('Failed to fetch cart from server:', error);
     }
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
-  const addToCart = async (product: Product, quantity: number = 1, event?: any) => {
-    if (quantity <= 0) return;
+  const safeAddToCart = async (product: Product, quantity: number = 1, event?: any): Promise<boolean> => {
+    if (quantity <= 0) return false;
 
-    // Live stock validation check
+    // 1. Verify authentication
+    const storedToken = localStorage.getItem('token');
+    if (!isAuthenticated && !token && !storedToken) {
+      addToast('Please log in to add items to your cart.', 'error');
+      navigate('/login', { state: { from: window.location.pathname } });
+      return false;
+    }
+
+    // 2. Live stock validation check
     const isOutOfStock =
       product.stock !== undefined
         ? product.stock <= 0
@@ -181,26 +200,38 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (isOutOfStock) {
       console.warn(`Cannot add "${product.name}" to cart: Item is out of stock.`);
       addToast(`"${product.name}" is out of stock and cannot be added to cart.`, 'error');
-      return;
+      return false;
     }
 
     const targetId = product._id || product.id || product.customId;
 
     try {
-      await API.post('/cart/add', { productId: targetId, quantity });
-      await fetchCart();
-      addToast(`Added ${quantity > 1 ? `${quantity} x ` : ''}"${product.name}" to cart.`, 'success');
-    } catch (error) {
+      // 3. Backend API call BEFORE any UI/state update
+      const response = await API.post('/cart/add', { productId: targetId, quantity });
+
+      if (response.status === 200 || response.status === 201 || response.data?.success) {
+        // 4. AFTER backend success ONLY: update cart, trigger animation, open drawer
+        await fetchCart();
+        addToast(`Added ${quantity > 1 ? `${quantity} x ` : ''}"${product.name}" to cart.`, 'success');
+
+        if (event) {
+          triggerFlyToCartAnimation(event);
+        }
+
+        setCartOpen(true);
+        return true;
+      } else {
+        addToast('Unable to add item to cart. Please try again.', 'error');
+        return false;
+      }
+    } catch (error: any) {
       console.error('Failed to add item to cart via API:', error);
-      addToast(`Failed to add "${product.name}" to cart.`, 'error');
+      addToast('Unable to add item to cart. Please try again.', 'error');
+      return false;
     }
-
-    if (event) {
-      triggerFlyToCartAnimation(event);
-    }
-
-    setCartOpen(true);
   };
+
+  const addToCart = safeAddToCart;
 
   const updateQuantity = async (id: string, quantity: number) => {
     if (quantity <= 0) {
@@ -268,6 +299,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         cart,
         addToCart,
+        safeAddToCart,
         updateQuantity,
         removeItem,
         clearCart,

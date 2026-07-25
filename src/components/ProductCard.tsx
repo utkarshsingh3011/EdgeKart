@@ -23,7 +23,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onQuickView,
 }) => {
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { safeAddToCart } = useCart();
   const { toggleWishlist, isWishlisted } = useWishlist();
 
   // Helper to render rating stars
@@ -153,7 +153,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              if (!isOutOfStock) addToCart(product, 1, e);
+              if (!isOutOfStock) safeAddToCart(product, 1, e);
             }}
             disabled={isOutOfStock}
             className={`p-3 rounded-xl transition-all shadow-lg font-bold flex items-center space-x-2 text-xs cursor-pointer ${
@@ -217,7 +217,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              if (!isOutOfStock) addToCart(product, 1, e);
+              if (!isOutOfStock) safeAddToCart(product, 1, e);
             }}
             disabled={isOutOfStock}
             className={`no-modal-trigger md:opacity-0 md:group-hover:opacity-100 py-2.5 px-4 rounded-xl font-bold text-sm transition-all duration-300 transform flex items-center space-x-1.5 cursor-pointer ${

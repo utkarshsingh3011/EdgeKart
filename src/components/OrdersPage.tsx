@@ -29,7 +29,7 @@ export const OrdersPage: React.FC<OrdersPageProps> = ({ theme, addToast }) => {
   useEffect(() => {
     document.title = 'My Orders | EdgeKart';
   }, []);
-  const { addToCart } = useCart();
+  const { safeAddToCart } = useCart();
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -66,8 +66,10 @@ export const OrdersPage: React.FC<OrdersPageProps> = ({ theme, addToast }) => {
           }
         }
         if (product) {
-          addToCart(product, item.quantity);
-          reorderCount += item.quantity;
+          const success = await safeAddToCart(product, item.quantity);
+          if (success) {
+            reorderCount += item.quantity;
+          }
         }
       }
 
